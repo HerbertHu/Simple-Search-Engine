@@ -18,7 +18,7 @@ class HtmlOutputer(object):
 			fout = open(file_path + '.txt', 'w', encoding='utf-8')
 			# print(data_item)
 			data_item['summary'] = data_item['summary'].replace(u'\xa0', u' ')
-			fout.write("%s \n%s\n%s\n" % (data_item['url'],data_item['title'],data_item['summary']))
+			fout.write("%s\n%s\n" % (data_item['title'],data_item['summary']))
 			num = num + 1
 		fout.close()
 
