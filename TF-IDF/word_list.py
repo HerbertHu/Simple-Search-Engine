@@ -12,11 +12,13 @@ class WordSeg():
         super(WordSeg, self).__init__()
         
     def segment(self, filePath):
-        print("text")
+        print("word segmentation:")
         original_text = open(filePath, 'r', encoding='UTF-8').read()
         
         seg_list = jieba.cut_for_search(original_text, HMM=False)  # 搜索引擎模式
-        text = list(seg_list)
+        text = " ".join(seg_list)
+        
+        print("word segmentation finish")
         return text
 
 #seg_list = jieba.cut(text, cut_all=False)

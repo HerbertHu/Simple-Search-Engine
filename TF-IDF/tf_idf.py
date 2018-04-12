@@ -12,7 +12,8 @@ from sklearn import feature_extraction
 from sklearn.feature_extraction.text import TfidfTransformer  
 from sklearn.feature_extraction.text import CountVectorizer
 
-parent_path =  path.dirname(path.dirname(__file__)) #返回当前文件父级目录  
+current_path = path.dirname(__file__)
+parent_path =  path.dirname(current_path) #返回当前文件父级目录  
 text_path = '/testSpider/output/output_1.txt' #设置要分析的文本路径
 filePath = parent_path + text_path
 
@@ -29,6 +30,13 @@ tfidf=transformer.fit_transform(vectorizer.fit_transform(total_text))
 word=vectorizer.get_feature_names()#获取词袋模型中的所有词语  
 weight=tfidf.toarray()#将tf-idf矩阵抽取出来，元素a[i][j]表示j词在i类文本中的tf-idf权重  
 for i in range(len(weight)):#打印每类文本的tf-idf词语权重，第一个for遍历所有文本，第二个for便利某一类文本下的词语权重  
+    f = open(current_path + '/tf_idf_result/output_' + str(i) +'_tfidf.txt', 'w',\
+             encoding='UTF-8')
     for j in range(len(word)):  
-        print(word[j],weight[i][j])
+        f.write(word[j] + ' ')
+        f.write(str(weight[i][j]) + '\n')
+#        f.write('\n')
+    f.close()
+
+        
 
