@@ -20,11 +20,3 @@ class WordSeg():
         
         print("word segmentation finish")
         return text
-
-#seg_list = jieba.cut(text, cut_all=False)
-#print("Default Mode: " + "/ ".join(seg_list))  # 精确模式
-#
-#for key in analyse.extract_tags(text,topK=20, withWeight=True):
-## 使用jieba.analyse.extract_tags()参数提取关键字,默认参数为50
-## 当withWeight=True时,将会返回number类型的一个权重值(TF-IDF)
-#    print(key)

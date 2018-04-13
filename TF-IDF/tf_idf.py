@@ -8,7 +8,6 @@ Created on Thu Apr 12 18:11:30 2018
 import word_list
 
 import os
-from sklearn import feature_extraction  
 from sklearn.feature_extraction.text import TfidfTransformer  
 from sklearn.feature_extraction.text import CountVectorizer
 
