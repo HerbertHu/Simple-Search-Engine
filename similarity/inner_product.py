@@ -47,14 +47,14 @@ def jaccard_sim(s1, s2):
     jaccard_similarity = np.dot(vectors[0], vectors[1]) * 1.0 / len(word)
     return jaccard_similarity
 
-s1 = "我是中国人"
-s2 = "他是美国人"
-text1 = segment(s1)
-text2 = segment(s2)
-
-in_pro_similarity = in_pro_sim(text1, text2)
-
-cos_similarity = cosine_sim(text1, text2)   
-
-jaccard_similarity = jaccard_sim(text1, text2)
+#s1 = "我是中国人"
+#s2 = "他是美国人"
+#text1 = segment(s1)
+#text2 = segment(s2)
+#
+#in_pro_similarity = in_pro_sim(text1, text2)
+#
+#cos_similarity = cosine_sim(text1, text2)   
+#
+#jaccard_similarity = jaccard_sim(text1, text2)
 
