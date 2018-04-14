@@ -4,38 +4,24 @@ Created on Fri Apr 13 17:11:37 2018
 
 @author: Herbert
 """
-import os
-from werkzeug import secure_filename
+
 from flask import Flask, render_template, request, redirect, url_for,flash
 from similarity import inner_product
-from TF_IDF import tf_idf
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '123456' 
-#UPLOAD_FOLDER = '/path/to/the/uploads'
-ALLOWED_EXTENSIONS = set(['txt'])
-
-app = Flask(__name__)
-#app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 @app.route('/')
 def index():
     return redirect(url_for('.success'))
 
 
-@app.route('/SIM', methods =['POST', 'GET'])
+@app.route('/TFIDF', methods =['POST', 'GET'])
 def success():
     if request.method == "POST":
         sen_1 = request.form['sen_1']
         sen_2 = request.form['sen_2']
         
         if sen_1 == "" or sen_2 == "":
-            
-            flash("提示：输入句子不能为空")
             in_pro_similarity = "请输入两个句子"
             cos_similarity = "请输入两个句子"
             jaccard_similarity = "请输入两个句子"
@@ -52,30 +38,6 @@ def success():
     else:
         return render_template('SIM.html')
 
-app.config['SECRET_KEY'] = '123456'   
-
-@app.route('/TFIDF', methods=['GET', 'POST'])
-def upload_file():        
-    if request.method == 'POST':
-        try:
-            file = request.files['file']
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                BASE_DIR = os.path.dirname(__file__)
-                file_dir = os.path.join(BASE_DIR, 'uploadFile/')
-                file.save(os.path.join(file_dir, filename))
-                tf_idf.cal_tfidf()
-                flash("TF-IDF计算已完成")
-                render_template('TFIDF.html')
-            else:
-                flash("提示：文件只能为txt格式")
-                render_template('TFIDF.html')
-        except:
-            flash("提示：文件不能为空")
-            render_template('TFIDF.html')
-
-    return render_template('TFIDF.html')
-
 
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run()
