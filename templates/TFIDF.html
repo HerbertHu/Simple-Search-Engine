@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload new File</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='sim.css')}}">
+</head>
+<body>
+	    <script type="text/javascript">
+       function   check()
+{
+   if(HtmlFileForm.file.value == "") {
+           alert("请选择文件路径");
+           return false;
+   }else{
+        return true;
+   }
+}
+      </script>
+
+<div class="inputWord">
+
+    <h1>Upload new File</h1>
+    <form target="_self" method=post enctype="multipart/form-data">
+      <p><input type="file" name="file" ></P>
+      <p><input type="submit" value=Upload onclick="return check()"  ></p>
+
+         {% with messages = get_flashed_messages() %}
+{% if messages %}
+    <p>
+    <ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+    </p>
+{% endif %}
+{% endwith %}
+    </form>
+
+
+</body>
+</html>
