@@ -9,7 +9,7 @@ class SpiderMain(object):
 		self.outputer = spider_html_outputer.HtmlOutputer()
 
 	def craw(self, root_url):
-		count = 1
+		count = 0
 		self.urls.add_new_url(root_url)
 		while self.urls.has_new_url():
 			try:
@@ -19,7 +19,7 @@ class SpiderMain(object):
 				new_urls, new_data = self.parser.parse(new_url, html_cont)
 				self.urls.add_new_urls(new_urls)
 				self.outputer.collect_data(new_data)
-				if(count == 100):
+				if(count == 99):
 					break
 
 				count = count + 1
@@ -33,6 +33,7 @@ class SpiderMain(object):
 		self.outputer.output_html()
 
 if __name__=="__main__":
-	root_url = "https://baike.baidu.com/item/%E5%A4%A9%E6%B4%A5%E5%A4%A7%E5%AD%A6/134155?fr=aladdin"
+	root_url = "http://baike.baidu.com/view/1256.htm"
+#root_url = "https://baike.baidu.com/item/%E5%A4%A9%E6%B4%A5%E5%A4%A7%E5%AD%A6"
 	obj_spider = SpiderMain()
 	obj_spider.craw(root_url)

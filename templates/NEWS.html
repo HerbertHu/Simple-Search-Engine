@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search_result</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='sim.css')}}">
+</head>
+
+
+<body>
+
+   <h1 style="text-align: center">{{ title }}</h1>
+    <hr>
+    <div class="post-body">
+        {% for c in content %}
+            {{ c }}<br />
+        {% endfor %}
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sjet</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='sim.css')}}">
+</head>
+
+
+<body>
+
+<br>
+<div class="inputWord">
+<form method="POST" target="_self">
+  <h1>搜索引擎</h1>
+  <p><input type="text" name="query" placeholder="Enter Query"></p>
+  <p><input type="submit" value="搜索一下" ></p>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <p>
+    <ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+    </p>
+{% endif %}
+{% endwith %}
+</form>
+</div>
+
+</br></br>
+  <table>
+      {% for id_num, title, content in results %}  
+        <tr>  
+            <td><a href="{{ url_for('news_page',id=id_num ) }}" \
+            target="_blank">{{ title }}</td>
+            <td>{{ content }}</td>
+        </tr>  
+      {% endfor %}  
+  </table>
+</body>
+</html>

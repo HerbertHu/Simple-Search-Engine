@@ -12,7 +12,7 @@ class HtmlOutputer(object):
 		self.datas.append(data)
 
 	def output_html(self):
-		num = 1
+		num = 0
 		for data_item in self.datas:
 			file_path = ".\output\output_" + str(num)
 			fout = open(file_path + '.txt', 'w', encoding='utf-8')

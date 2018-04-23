@@ -9,6 +9,7 @@ from werkzeug import secure_filename
 from flask import Flask, render_template, request, redirect, url_for,flash
 from similarity import inner_product
 from TF_IDF import tf_idf
+from SJet import SJet_result
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '123456' 
@@ -75,6 +76,51 @@ def upload_file():
             render_template('TFIDF.html')
 
     return render_template('TFIDF.html')
+
+# 展示新闻内容
+@app.route('/news_page/<int:id>', methods=['GET'])
+def news_page(id):
+    BASE_DIR = os.path.dirname(__file__)
+    file_dir = os.path.join(BASE_DIR, 'Sjet/CorpusCollection/')
+    with open(file_dir + 'output_' + str(id) + '.txt', 'r', encoding='UTF-8') as f:
+        title = f.readline()
+        content = []
+        while True:
+            c = f.readline()
+            if c:
+                content.append(c)
+            else:
+                break
+
+    return render_template('NEWS.html', title=title, content=content)
+
+@app.route('/SJet', methods=['GET','POST'])
+def sjet():
+    if request.method == "POST":
+        query = request.form['query']
+        text_result = SJet_result.text_sort(query)
+
+        BASE_DIR = os.path.dirname(__file__)
+        file_dir = os.path.join(BASE_DIR, 'Sjet/CorpusCollection/')
+        
+        results = []
+        for i in range(10):
+            with open(file_dir + text_result[i] + '.txt', 'r', encoding='UTF-8') as f:
+                id_num = text_result[i][7:]
+                title = f.readline()
+                content = []
+                c = f.readline()
+                c = f.readline()
+                if c:
+                    content.append(c[0:50])
+                else:
+                    c = f.readline()
+                    content.append(c[0:50])
+                results.append([id_num, title,content])
+        
+        return render_template('SJET.html', results = results)
+    else:
+        return render_template('SJET.html')
 
 
 if __name__=="__main__":
