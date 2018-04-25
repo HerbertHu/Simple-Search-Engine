@@ -23,9 +23,9 @@ def get_file_name(file_dir):
 
 def cal_tfidf():
     current_path = os.path.dirname(__file__)
-    parent_path =  os.path.dirname(current_path) #返回当前文件父级目录  
+#    parent_path =  os.path.dirname(current_path) #返回当前文件父级目录  
     text_path = '/uploadFile/' #设置要分析的文本路径
-    filePath = parent_path + text_path 
+    filePath = current_path + text_path 
     
     total_text = []
     wordSeg = word_list.WordSeg()
@@ -33,7 +33,7 @@ def cal_tfidf():
     file_list = get_file_name(filePath)
     for file_name in file_list:
         text_path = '/uploadFile/' + file_name + '.txt' #设置要分析的文本路径
-        filePath = parent_path + text_path
+        filePath = current_path + text_path
         text = wordSeg.segment(filePath)
         total_text.append(text)
     
@@ -44,7 +44,7 @@ def cal_tfidf():
     word=vectorizer.get_feature_names()#获取词袋模型中的所有词语  
     weight=tfidf.toarray()#将tf-idf矩阵抽取出来，元素a[i][j]表示j词在i类文本中的tf-idf权重  
     for i in range(len(weight)):#打印每类文本的tf-idf词语权重，第一个for遍历所有文本，第二个for便利某一类文本下的词语权重  
-        f = open(parent_path + '/TF_IDF result/' + file_list[i] +'_tfidf.txt', 'w',\
+        f = open(current_path + '/TF_IDF result/' + file_list[i] +'_tfidf.txt', 'w',\
                  encoding='UTF-8')
         for j in range(len(word)):  
             f.write(word[j] + ' ')

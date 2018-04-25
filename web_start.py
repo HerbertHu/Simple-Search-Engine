@@ -7,8 +7,8 @@ Created on Fri Apr 13 17:11:37 2018
 import os
 from werkzeug import secure_filename
 from flask import Flask, render_template, request, redirect, url_for,flash
-from similarity import inner_product
-from TF_IDF import tf_idf
+from SIM import cal_similarity
+from TFIDF import tf_idf
 from SJet import SJet_result
 
 app = Flask(__name__)
@@ -41,12 +41,12 @@ def success():
             cos_similarity = "请输入两个句子"
             jaccard_similarity = "请输入两个句子"
         else:    
-            text1 = inner_product.segment(sen_1)
-            text2 = inner_product.segment(sen_2)
+            text1 = cal_similarity.segment(sen_1)
+            text2 = cal_similarity.segment(sen_2)
             
-            in_pro_similarity = inner_product.in_pro_sim(text1, text2)
-            cos_similarity = inner_product.cosine_sim(text1, text2)           
-            jaccard_similarity = inner_product.jaccard_sim(text1, text2)
+            in_pro_similarity = cal_similarity.in_pro_sim(text1, text2)
+            cos_similarity = cal_similarity.cosine_sim(text1, text2)           
+            jaccard_similarity = cal_similarity.jaccard_sim(text1, text2)
         
         return render_template('SIM.html', result_1 = in_pro_similarity,result_2 = \
                            cos_similarity, result_3 = jaccard_similarity)
@@ -63,7 +63,7 @@ def upload_file():
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 BASE_DIR = os.path.dirname(__file__)
-                file_dir = os.path.join(BASE_DIR, 'uploadFile/')
+                file_dir = os.path.join(BASE_DIR, 'TFIDF/uploadFile/')
                 file.save(os.path.join(file_dir, filename))
                 tf_idf.cal_tfidf()
                 flash("TF-IDF计算已完成")
