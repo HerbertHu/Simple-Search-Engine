@@ -6,11 +6,13 @@ class HtmlOutputer(object):
 		super(HtmlOutputer, self).__init__()
 		self.datas = []
 
+	# 添加已经抓取的内容
 	def collect_data(self, data):
 		if data is None:
 			return
 		self.datas.append(data)
 
+	# 输出抓取内容，保存在文件中
 	def output_html(self):
 		num = 0
 		for data_item in self.datas:

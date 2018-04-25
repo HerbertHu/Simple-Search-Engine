@@ -7,7 +7,7 @@ class HtmlParser(object):
 	def __init__(self):
 		super(HtmlParser, self).__init__()
 
-
+	将得到的URL放入新URL的集合
 	def _get_new_urls(self, page_url, soup):
 		new_urls = set()
 
@@ -19,6 +19,7 @@ class HtmlParser(object):
 			new_urls.add(new_full_url)
 		return new_urls
 
+	# 根据网格格式，抓取内容
 	def _get_new_data(self, page_url, soup):
 		res_data = {}
 
@@ -32,6 +33,7 @@ class HtmlParser(object):
 
 		return res_data
 
+	# 用解析器开始解析
 	def parse(self, page_url, html_cont):
 		if page_url is None or html_cont is None:
 			return
@@ -40,6 +42,3 @@ class HtmlParser(object):
 		new_data = self._get_new_data(page_url, soup)
 
 		return new_urls, new_data
-
-
-

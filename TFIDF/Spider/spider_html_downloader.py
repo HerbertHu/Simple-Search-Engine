@@ -5,6 +5,7 @@ class HtmlDownLoader(object):
 	def __init__(self):
 		super(HtmlDownLoader, self).__init__()
 
+	# 开始请求网页，得到网页内容
 	def download(self, url):
 		if url is None:
 			return None
@@ -16,5 +17,3 @@ class HtmlDownLoader(object):
 		if(response.getcode() != 200):
 			return None
 		return response.read()
-
-
